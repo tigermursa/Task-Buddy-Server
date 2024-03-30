@@ -9,8 +9,13 @@ const createTask = async (req: Request, res: Response) => {
         //data will come into body
         const sites = req.body;
         //will call services 
-        const zodErrorData = TaskValidationZodSchema.parse(sites);
-        const result = await TasksServices.createTaskIntoDB(zodErrorData);
+        const zodErrorData = TaskValidationZodSchema.safeParse(sites);
+        if (!zodErrorData.success) {
+            //  Zod error messages
+            const errorMessage = zodErrorData.error.errors.map(error => error.message).join(', ');
+            throw new Error(errorMessage);
+        }
+        const result = await TasksServices.createTaskIntoDB(zodErrorData.data);
         //sending response 
         res.status(200).json({
             success: true,
