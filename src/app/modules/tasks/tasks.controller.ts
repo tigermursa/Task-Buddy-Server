@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import TaskValidationZodSchema from "./tasks.validation";
 import { TasksServices } from "./tasks.services";
+import { handleZodErrorMessage } from "../../errors/handleZodErrorMessage";
 
 
 // Create
@@ -11,8 +12,8 @@ const createTask = async (req: Request, res: Response) => {
         //will call services 
         const zodErrorData = TaskValidationZodSchema.safeParse(sites);
         if (!zodErrorData.success) {
-            //  Zod error messages
-            const errorMessage = zodErrorData.error.errors.map(error => error.message).join(', ');
+            //  Zod error messages here
+            const errorMessage = handleZodErrorMessage(zodErrorData.error)
             throw new Error(errorMessage);
         }
         const result = await TasksServices.createTaskIntoDB(zodErrorData.data);
