@@ -49,7 +49,7 @@ const getAllTasks = async (req: Request, res: Response) => {
 // Get One
 const getSingleTask = async (req: Request, res: Response) => {
     try {
-        const taskId = req.params.taskId;
+        const taskId = req.params.id;
         const result = await TasksServices.getSingleTaskFromDB(taskId);
         //sending response 
         res.status(200).json({
@@ -69,7 +69,7 @@ const getSingleTask = async (req: Request, res: Response) => {
 // Delete One
 const deleteTask = async (req: Request, res: Response) => {
     try {
-        const taskId = req.params.taskId;
+        const taskId = req.params.id;
         const result = await TasksServices.deleteTaskFromDB(taskId);
         //sending response 
         res.status(200).json({
@@ -90,7 +90,7 @@ const deleteTask = async (req: Request, res: Response) => {
 //Update One
 const updateTask = async (req: Request, res: Response) => {
     try {
-        const taskId = req.params.taskId;
+        const taskId = req.params.id;
         const updatedData = req.body;
         const result = await TasksServices.updateTaskFromDB(taskId, updatedData);
         //sending response 
