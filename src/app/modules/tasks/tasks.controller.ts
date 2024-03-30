@@ -110,7 +110,7 @@ const updateTask = async (req: Request, res: Response) => {
 
 
 
-export const WebsiteController = {
+export const TasksController = {
     createTask,
     getAllTasks,
     getSingleTask,
