@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());  // JSON parse will happen
 app.use(cors());
 
-// Application routes
+// Application routes:
 // app.use('/api/v1/xyz', xyz);
 // app.use('/api/v2/xyz', xyz);
 
