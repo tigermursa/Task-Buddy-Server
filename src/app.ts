@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import { TaskRoutes } from "./app/modules/tasks/tasks.route";
 
 const app = express();
 
@@ -8,7 +9,7 @@ app.use(express.json());  // JSON parse will happen
 app.use(cors());
 
 // Application routes:
-// app.use('/api/v1/xyz', xyz);
+app.use('/api/v1/task', TaskRoutes);
 // app.use('/api/v2/xyz', xyz);
 
 app.get('/', (req, res) => {
