@@ -36,19 +36,27 @@ const createTask = async (req: Request, res: Response) => {
 // Get-All
 const getAllTasks = async (req: Request, res: Response) => {
     try {
-        const result = await TasksServices.getAllTasksFromDB()
-        //sending response 
+        // Get all tasks
+        const tasks = await TasksServices.getAllTasksFromDB();
+
+        // Get total number of tasks
+        const totalTasks = tasks.length;
+
+        // Sending response
         res.status(200).json({
             success: true,
-            message: "data retrieved successfully ✔",
-            data: result,
-        })
+            message: "Data retrieved successfully ✔",
+            data: {
+                totalTasks,
+                tasks,
+            },
+        });
     } catch (error: any) {
         res.status(500).json({
-            success: true,
-            message: "something went wrong !!! ",
+            success: false,
+            message: "Something went wrong!",
             error: error.message,
-        })
+        });
     }
 };
 

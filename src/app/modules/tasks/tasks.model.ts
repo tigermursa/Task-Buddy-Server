@@ -8,7 +8,7 @@ const taskSchema = new Schema<TTasks, TasksWithStatic>(
         title: { type: String, required: true },
         description: { type: String, required: true },
         category: { type: String, enum: ['personal', 'official', 'family'] },
-        status: { type: String, enum: ['complete', 'incomplete'], default: "complete" },
+        status: { type: String, enum: ['complete', 'incomplete'], default: "incomplete" },
         isImportant: { type: Boolean, default: false },
         isDeleted: { type: Boolean, default: false }
     }
