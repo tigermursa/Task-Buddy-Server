@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import { TaskRoutes } from "./app/modules/tasks/tasks.route";
 import { UserRoutes } from "./app/modules/user/users.route";
+import { AuthRoutes } from "./app/modules/auth/auth.route";
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(cors());
 // Application routes:
 app.use('/api/v1/task', TaskRoutes);
 app.use('/api/v2/user', UserRoutes);
+app.use('/login', AuthRoutes);
 
 app.get('/', (req, res) => {
     res.send('Task Buddy Server Running Successfully ✔');
