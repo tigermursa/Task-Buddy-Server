@@ -4,7 +4,7 @@ import TasksModel from "./tasks.model";
 
 //post
 const createTaskIntoDB = async (data: TTasks) => {
-    if (await TasksModel.isUserExists(data.title)) {
+    if (await TasksModel.isTaskExists(data.title)) {
         throw new Error("This Task already exist");
     }
     const result = await TasksModel.create(data) //builtin static method using

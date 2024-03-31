@@ -33,10 +33,10 @@ taskSchema.pre('aggregate', function (next) {
 });
 
 // NEW STATIC METHOD
-taskSchema.statics.isUserExists = async function (title: string): Promise<TTasks | null> {
-    const existingUser = await this.findOne({ title }); // TODO:IF ERROR THEN YOU KNOW WHAT TO DO
+taskSchema.statics.isTaskExists = async function (title: string): Promise<TTasks | null> {
+    const existingUser = await this.findOne({ title }); 
     return existingUser;
 };
-const TasksModel = model<TTasks, TasksWithStatic>('data', taskSchema);
+const TasksModel = model<TTasks, TasksWithStatic>('task', taskSchema);
 
 export default TasksModel;
