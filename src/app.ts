@@ -13,7 +13,7 @@ app.use(cors());
 // Application routes:
 app.use('/api/v1/task', TaskRoutes);
 app.use('/api/v2/user', UserRoutes);
-app.use('/login', AuthRoutes);
+app.use('/user', AuthRoutes);
 
 app.get('/', (req, res) => {
     res.send('Task Buddy Server Running Successfully ✔');
