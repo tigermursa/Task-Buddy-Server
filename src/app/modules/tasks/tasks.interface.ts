@@ -8,6 +8,7 @@ export type TTasks = {
     title: string;
     description: string;
     category: "personal" | "official" | "family",
+    status: "complete" | "incomplete",
     isImportant: boolean;
     isDeleted: boolean;
 };

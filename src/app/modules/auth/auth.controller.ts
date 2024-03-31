@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { AuthService } from "./auth.services";
-
+//jwt token..
 const jwt = require("jsonwebtoken");
 
 export async function login(req: Request, res: Response): Promise<Response> {
@@ -10,7 +10,7 @@ export async function login(req: Request, res: Response): Promise<Response> {
         // Find user by email
         const user = await AuthService.findUserByEmail(email);
         if (!user) {
-            return res.status(401).json({ message: "Invalid email or password" });
+            return res.status(401).json({ success: false, message: "invalid email" });
         }
 
         // Compare hashed password
@@ -19,10 +19,10 @@ export async function login(req: Request, res: Response): Promise<Response> {
             user.password
         );
         if (!isPasswordValid) {
-            return res.status(401).json({ message: "Invalid email or password" });
+            return res.status(401).json({ success: false, message: "invalid password" });
         }
 
-        // Generate JWT token
+        // Generate JWT token...⚡
         const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, {
             expiresIn: process.env.EXPIRES_IN,
         });
@@ -38,6 +38,6 @@ export async function login(req: Request, res: Response): Promise<Response> {
     }
 }
 
-export const AuthController ={
-login,
+export const AuthController = {
+    login,
 }
