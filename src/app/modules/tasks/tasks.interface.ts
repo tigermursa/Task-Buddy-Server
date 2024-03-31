@@ -7,8 +7,9 @@ export interface TasksWithStatic extends Model<TTasks> {
 export type TTasks = {
     title: string;
     description: string;
+    deadline: string;
     category: "personal" | "official" | "family",
-    status: "complete" | "incomplete" ,
+    status: "complete" | "incomplete",
     isImportant: boolean;
     isDeleted: boolean;
 };
