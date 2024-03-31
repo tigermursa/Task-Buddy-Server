@@ -1,7 +1,8 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Document } from "mongoose";
 import { TUser, UserWithStatic } from "./users.interface";
 import bcrypt from 'bcrypt';
 import config from "../../config";
+
 
 // Tasks Schema here
 const userSchema = new Schema<TUser, UserWithStatic>(
@@ -17,23 +18,20 @@ const userSchema = new Schema<TUser, UserWithStatic>(
 
 
 
-// Hash the password before saving
+
+// Middleware to hash the password before saving
 userSchema.pre('save', async function (next) {
-    const user = this as TUser;
+    const user = this as Document & TUser;
     if (!user.isModified('password')) return next();
 
     try {
-        const saltRounds = parseInt(config.bcrypt_salt_rounds || '10');
-        const salt = await bcrypt.genSalt(saltRounds);
-        const hashedPassword = await bcrypt.hash(user.password, salt);
+        const hashedPassword = await bcrypt.hash(user.password, config.bcrypt_salt_rounds || "10");
         user.password = hashedPassword;
         next();
     } catch (error: any) {
         return next(error);
     }
 });
-
-
 
 
 

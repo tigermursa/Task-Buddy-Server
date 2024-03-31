@@ -5,7 +5,6 @@ export interface UserWithStatic extends Model<TUser> {
 }
 
 export type TUser = {
-    isModified(arg0: string): unknown;
     name: string;
     userImage: string;
     email: string;
