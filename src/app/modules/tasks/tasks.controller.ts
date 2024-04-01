@@ -99,6 +99,45 @@ const deleteTask = async (req: Request, res: Response) => {
         })
     }
 }
+// isImportant special route
+const isImportant = async (req: Request, res: Response) => {
+    try {
+        const taskId = req.params.id;
+        const result = await TasksServices.isImportantTaskFromDB(taskId);
+        //sending response 
+        res.status(200).json({
+            success: true,
+            message: "Important task added",
+            data: result,
+        })
+    } catch (error: any) {
+        res.status(500).json({
+            success: true,
+            message: "something went wrong !!! ",
+            error: error.message,
+        })
+    }
+}
+
+// isCompleted special route
+const isCompleted = async (req: Request, res: Response) => {
+    try {
+        const taskId = req.params.id;
+        const result = await TasksServices.isCompletedTaskFromDB(taskId);
+        //sending response 
+        res.status(200).json({
+            success: true,
+            message: "Task Completed!",
+            data: result,
+        })
+    } catch (error: any) {
+        res.status(500).json({
+            success: true,
+            message: "something went wrong !!! ",
+            error: error.message,
+        })
+    }
+}
 
 
 //Update One
@@ -129,5 +168,7 @@ export const TasksController = {
     getAllTasks,
     getSingleTask,
     deleteTask,
-    updateTask
+    updateTask,
+    isImportant,
+    isCompleted
 }

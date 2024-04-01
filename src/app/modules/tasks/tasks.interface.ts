@@ -9,7 +9,7 @@ export type TTasks = {
     description: string;
     deadline: string;
     category: "personal" | "official" | "family",
-    status: "complete" | "incomplete",
+    status: boolean,
     email: string;
     isImportant: boolean;
     isDeleted: boolean;

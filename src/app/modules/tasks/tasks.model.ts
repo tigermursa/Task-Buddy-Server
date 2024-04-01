@@ -10,7 +10,7 @@ const taskSchema = new Schema<TTasks, TasksWithStatic>(
         deadline: { type: String, required: true },
         email: { type: String },
         category: { type: String, enum: ['personal', 'official', 'family'] },
-        status: { type: String, enum: ['complete', 'incomplete'], default: "incomplete" },
+        status: { type: Boolean, default: false },
         isImportant: { type: Boolean, default: false },
         isDeleted: { type: Boolean, default: false }
     }

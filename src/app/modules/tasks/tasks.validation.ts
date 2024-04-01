@@ -6,7 +6,7 @@ const TaskValidationZodSchema = z.object({
     deadline: z.string(),
     email: z.string(),
     category: z.enum(['personal', 'official', 'family']),
-    status: z.enum(['complete', 'incomplete']).default('incomplete'),
+    status: z.boolean().default(false),
     isImportant: z.boolean().default(false),
     isDeleted: z.boolean().default(false),
 });
