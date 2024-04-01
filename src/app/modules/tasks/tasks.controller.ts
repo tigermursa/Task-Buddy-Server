@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import TaskValidationZodSchema from "./tasks.validation";
 import { TasksServices } from "./tasks.services";
 import { handleZodErrorMessage } from "../../errors/handleZodErrorMessage";
+import TasksModel from "./tasks.model";
 
 
 // Create
@@ -36,19 +37,23 @@ const createTask = async (req: Request, res: Response) => {
 // Get-All
 const getAllTasks = async (req: Request, res: Response) => {
     try {
-        // Get all tasks
-        const tasks = await TasksServices.getAllTasksFromDB();
+        const page = parseInt(req.query.page as string) || 1;
+        const limit = parseInt(req.query.limit as string) || 10;
+        const skip = (page - 1) * limit;
 
-        // Get total number of tasks
-        const totalTasks = tasks.length;
+        const totalCount = await TasksModel.countDocuments();
+        const totalPages = Math.ceil(totalCount / limit);
 
-        // Sending response
+        const tasks = await TasksModel.find().skip(skip).limit(limit);
+
         res.status(200).json({
             success: true,
             message: "Data retrieved successfully ✔",
             data: {
-                totalTasks,
-                tasks,
+                totalTasks: totalCount,
+                totalPages: totalPages,
+                currentPage: page,
+                tasks: tasks,
             },
         });
     } catch (error: any) {
@@ -59,6 +64,10 @@ const getAllTasks = async (req: Request, res: Response) => {
         });
     }
 };
+
+
+
+
 
 // Get One
 const getSingleTask = async (req: Request, res: Response) => {
