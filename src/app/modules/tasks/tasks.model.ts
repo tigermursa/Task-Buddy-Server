@@ -1,9 +1,9 @@
 import { Schema, model } from "mongoose";
-import { TTasks, TasksWithStatic } from "./tasks.interface";
+import { TTasks } from "./tasks.interface";
 
 
 // Tasks Schema here
-const taskSchema = new Schema<TTasks, TasksWithStatic>(
+const taskSchema = new Schema<TTasks>(
     {
         title: { type: String, required: true },
         description: { type: String, required: true },
@@ -36,10 +36,10 @@ taskSchema.pre('aggregate', function (next) {
 });
 
 // NEW STATIC METHOD
-taskSchema.statics.isTaskExists = async function (title: string): Promise<TTasks | null> {
-    const existingUser = await this.findOne({ title });
-    return existingUser;
-};
-const TasksModel = model<TTasks, TasksWithStatic>('task', taskSchema);
+// taskSchema.statics.isTaskExists = async function (title: string): Promise<TTasks | null> {
+//     const existingUser = await this.findOne({ title });
+//     return existingUser;
+// };
+const TasksModel = model<TTasks>('task', taskSchema);
 
 export default TasksModel;
