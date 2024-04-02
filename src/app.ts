@@ -11,9 +11,9 @@ app.use(express.json());  // JSON parse will happen
 app.use(cors());
 
 // Application routes:
-app.use('/api/v1/task', TaskRoutes);
-app.use('/api/v2/user', UserRoutes);
-app.use('/user', AuthRoutes);
+app.use('/api/v1/task', TaskRoutes); //Task
+app.use('/api/v2/user', UserRoutes); //Users
+app.use('/user', AuthRoutes);       //Login   
 
 app.get('/', (req, res) => {
     res.send('Task Buddy Server Running Successfully ✔');
