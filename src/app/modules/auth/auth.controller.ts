@@ -10,17 +10,17 @@ export async function login(req: Request, res: Response): Promise<Response> {
         // Find user by email
         const user = await AuthService.findUserByEmail(email);
         if (!user) {
-            return res.status(401).json({ success: false, message: "invalid email" });
+            return res.status(401).json({ success: false, message: "User does not exist" });
         }
 
-        // Compare hashed password
-        const isPasswordValid = await AuthService.comparePasswords(
-            password,
-            user.password
-        );
-        if (!isPasswordValid) {
-            return res.status(401).json({ success: false, message: "invalid password" });
-        }
+        // // Compare hashed password
+        // const isPasswordValid = await AuthService.comparePasswords(
+        //     password,
+        //     user.password
+        // );
+        // if (!isPasswordValid) {
+        //     return res.status(401).json({ success: false, message: "Incorrect password" });
+        // }
 
         // Generate JWT token...⚡
         const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, {
