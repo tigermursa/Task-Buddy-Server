@@ -3,7 +3,8 @@ import { z } from "zod";
 const TaskValidationZodSchema = z.object({
     // title: z.string().min(3, { message: "Title must be at least 3 characters long" }),
     title: z.string(),
-    description: z.string().min(10, { message: "Description must be at least 10 characters long" }),
+    // description: z.string().min(10, { message: "Description must be at least 10 characters long" }),
+    description: z.string(),
     deadline: z.string(),
     email: z.string(),
     category: z.enum(['personal', 'official', 'family']),
