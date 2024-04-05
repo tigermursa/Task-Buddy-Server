@@ -38,3 +38,10 @@
 
 ### Pagination
 Pagination implemented for efficient handling of large datasets.
+
+## To run the application locally, follow these steps
+
+- Clone the repository to your local machine
+- Navigate to the project directory in your terminal or command prompt.
+- Run the command npm install to install the necessary dependencies
+- Once the dependencies are installed, execute npm run dev to start the application locally
