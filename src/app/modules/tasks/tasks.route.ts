@@ -13,4 +13,5 @@ router.put("/:id", TasksController.isImportant);
 router.put("/status/:id", TasksController.isCompleted);
 router.patch("/:id", TasksController.updateTask);
 router.delete("/delete-all/:email", TasksController.deleteAllTasksByEmail);
+router.get("/:email", TasksController.getAllTasksByEmail);
 export const TaskRoutes = router;

@@ -182,6 +182,25 @@ const deleteAllTasksByEmail = async (req: Request, res: Response) => {
   }
 };
 
+// Get all tasks by email
+const getAllTasksByEmail = async (req: Request, res: Response) => {
+  try {
+    const email = req.params.email;
+    const result = await TasksServices.getAllTasksByEmailFromDB(email);
+    res.status(200).json({
+      success: true,
+      message: `All tasks for email ${email} retrieved successfully!`,
+      data: result,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: "Something went wrong!",
+      error: error.message,
+    });
+  }
+};
+
 export const TasksController = {
   createTask,
   getAllTasks,
@@ -191,4 +210,5 @@ export const TasksController = {
   isImportant,
   isCompleted,
   deleteAllTasksByEmail,
+  getAllTasksByEmail,
 };
