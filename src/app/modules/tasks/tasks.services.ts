@@ -60,7 +60,11 @@ const updateTaskFromDB = async (_id: string | ObjectId, updatedData: Partial<TTa
     }
 };
 
-
+// Delete all tasks by email
+const deleteAllTasksByEmailFromDB = async (email: string) => {
+    const result = await TasksModel.updateMany({ email }, { isDeleted: true });
+    return result;
+};
 
 
 
@@ -71,5 +75,6 @@ export const TasksServices = {
     deleteTaskFromDB,
     updateTaskFromDB,
     isImportantTaskFromDB,
-    isCompletedTaskFromDB
+    isCompletedTaskFromDB,
+    deleteAllTasksByEmailFromDB
 }
