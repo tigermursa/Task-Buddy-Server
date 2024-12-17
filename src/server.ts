@@ -1,21 +1,22 @@
-import app from "./app"
-import mongoose from 'mongoose'
+import app from "./app"; // Your Express app
+import mongoose from "mongoose";
 import config from "./app/config";
 
-async function server() {
-    try {
+// Function to ensure the database is connected
+async function connectDB() {
+    if (mongoose.connection.readyState === 0) {
         await mongoose.connect(config.dbUrl as string);
-        console.log("mongoose connected successfully! 🥫")
-        app.listen(config.port, () => {
-            console.log(`Server running at the port ${config.port} ✨`)
-        })
-    } catch (error) {
-        console.log(error)
+        console.log("Mongoose connected successfully! 🥫");
     }
 }
 
-server().catch(err => console.log(err));
-
-
-
-
+// Export handler for Vercel
+export default async (req: any, res: any) => {
+    try {
+        await connectDB(); // Connect to the database (only if not already connected)
+        app(req, res);    // Pass the request to your Express app
+    } catch (error) {
+        console.error("Error handling request:", error);
+        res.status(500).send("Internal Server Error");
+    }
+};
