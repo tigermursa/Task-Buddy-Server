@@ -1,22 +1,37 @@
-import app from "./app"; // Your Express app
+import app from "./app";
 import mongoose from "mongoose";
 import config from "./app/config";
+import dotenv from "dotenv";
 
-// Function to ensure the database is connected
+// Load environment variables from a `.env` file
+dotenv.config();
+
 async function connectDB() {
-    if (mongoose.connection.readyState === 0) {
+    try {
         await mongoose.connect(config.dbUrl as string);
-        console.log("Mongoose connected successfully! 🥫");
+        console.log("MongoDB connected successfully! 🥫");
+    } catch (error) {
+        console.error("MongoDB connection error:", error);
+        setTimeout(connectDB, 5000); // Retry after 5 seconds if connection fails
     }
 }
 
-// Export handler for Vercel
-export default async (req: any, res: any) => {
-    try {
-        await connectDB(); // Connect to the database (only if not already connected)
-        app(req, res);    // Pass the request to your Express app
-    } catch (error) {
-        console.error("Error handling request:", error);
-        res.status(500).send("Internal Server Error");
-    }
-};
+async function server() {
+    await connectDB();
+
+    const port = process.env.PORT || config.port;
+
+    app.listen(port, () => {
+        console.log(`Server running at the port ${port} ✨`);
+    });
+
+    // Graceful shutdown handling
+    process.on("SIGINT", async () => {
+        console.log("Received SIGINT, closing server...");
+        await mongoose.disconnect();
+        process.exit(0);
+    });
+}
+
+server().catch((err) => console.log("Server error:", err));
+
