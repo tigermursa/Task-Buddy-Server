@@ -11,12 +11,14 @@ const auth_route_1 = require("./app/modules/auth/auth.route");
 const app = (0, express_1.default)();
 // Parsers
 app.use(express_1.default.json()); // JSON parse will happen
-app.use((0, cors_1.default)());
+app.use((0, cors_1.default)({
+    origin: "https://task-buddy-client.vercel.app",
+}));
 // Application routes:
-app.use('/api/v1/task', tasks_route_1.TaskRoutes); //Task
-app.use('/api/v2/user', users_route_1.UserRoutes); //Users
-app.use('/user', auth_route_1.AuthRoutes); //Login   
-app.get('/', (req, res) => {
-    res.send('Task Buddy Server Running Successfully ✔');
+app.use("/api/v1/task", tasks_route_1.TaskRoutes); //Task
+app.use("/api/v2/user", users_route_1.UserRoutes); //Users
+app.use("/user", auth_route_1.AuthRoutes); //Login
+app.get("/", (req, res) => {
+    res.send("Task Buddy Server Running Successfully ✔");
 });
 exports.default = app;
